@@ -14,4 +14,21 @@ public class VokDaten
 		vokabelD = pVokabelD;
 		KategorieNr = pKategorieNr;
 	}
+	
+	public int liesVokabelNr()
+	{
+		return VokabelNr;
+	}
+	public String liesVokabelE()
+	{
+		return vokabelE;
+	}
+	public String liesVokabelD()
+	{
+		return vokabelD;
+	}
+	public int liesKategorieNr()
+	{
+		return KategorieNr;
+	}
 }
