@@ -20,6 +20,8 @@ public class VokDaten
 		prioritaet = pPrioritaet;
 	}
 	
+	
+	
 	public int liesVokabelNr()
 	{
 		return VokabelNr;
