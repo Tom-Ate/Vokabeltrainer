@@ -10,14 +10,46 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
 public class Speicher
 {
 	private Connection con; // Verbindung zur Datenbank
-	private PreparedStatement stmt; // Anfrage an die Datenbank 
-	private ResultSet rs; // ergebnis der Datenbank 
-	
-	public VokDaten[] liesVokabeln(String pDateiname) throws Exception
+	private PreparedStatement stmt; // Anfrage an die Datenbank
+	private ResultSet rs; // ergebnis der Datenbank
+
+	public ArrayList<Vokabel> liesVokabeln() throws Exception
+	{
+		oeffneDatenbank();
+		ArrayList<Vokabel> vokabeln = new ArrayList<>();
+
+		// lesende SQL-Abfrage and die Datenbank
+		String sqlStmt = "SELECT VokabelNr, Uebersetzung, Fremdsprach-Vokabel";
+		sqlStmt += "FROM Uebersetzung, Fremdsprach-Vokabeln";
+
+		try
+		{
+			stmt = con.prepareStatement(sqlStmt);
+			rs = stmt.executeQuery();
+			while (rs.next())
+			{
+				vokabeln.add(new Vokabel(rs.getInt("VokabelNr"),
+						rs.getString("Uebersetzung"),
+						rs.getString("Fremdsprach-Vokabel"), false));
+			}
+		}
+		catch (SQLException e)
+		{
+			throw new Exception("Fehler beim lesen der Daten");
+		}
+		schließeDatenbank();
+		return vokabeln;
+	}
+
+	public void schreibeVokabeln(String pDateiname, ArrayList<Vokabel> pVokDaten)
+	{
+		
+	}
+
+	public void oeffneDatenbank() throws Exception
 	{
 		try
 		{
@@ -27,15 +59,24 @@ public class Speicher
 		}
 		catch (SQLException e)
 		{
-			throw new Exception("Fehler beim Öffnen der Datenbank!");
+			throw new Exception("Fehler beim öffnen der Datenbank");
 		}
-		
-		P
-		
 	}
-	
-	public void schreibeVokabeln(String pDateiname, VokDaten[] pVokDaten)
+
+	public void schließeDatenbank() throws Exception
 	{
-		
+		try
+		{
+			if (rs != null)
+			{
+				rs.close();
+			}
+			stmt.close();
+			con.close();
+		}
+		catch (SQLException e)
+		{
+			throw new Exception("Fehler beim Schließen der DAtenbank");
+		}
 	}
 }
