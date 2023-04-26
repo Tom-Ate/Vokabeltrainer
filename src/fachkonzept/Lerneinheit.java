@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Lerneinheit
 {
-	private ArrayList<VokDaten> dieAktuellenVokDaten;
+	private ArrayList<Vokabel> dieAktuellenVokDaten;
 	public Lerneinheit()
 	{
 		dieAktuellenVokDaten = new ArrayList<>();
@@ -17,7 +17,7 @@ public class Lerneinheit
 	    double errorRate = (double) numIncorrect / total;
 	    return errorRate;
 	} 
-	public ArrayList<VokDaten> randomizedArray(ArrayList<VokDaten>pVokDaten,int pMenge) throws Exception
+	public ArrayList<Vokabel> randomizedArray(ArrayList<Vokabel>pVokDaten,int pMenge) throws Exception
 	{
 		
 		int PriortiyZusammen = 0;
